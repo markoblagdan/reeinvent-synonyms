@@ -46,7 +46,6 @@ const validateSynonymInput = (
   const synonymErrors: AddSynonymsInputErrors = {
     firstSynonymError: "",
     secondSynonymError: "",
-    generalError: "",
   };
 
   if (!firstSynonym) {
