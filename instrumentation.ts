@@ -11,8 +11,5 @@ export async function register() {
     if (!globalRef.synonymsRepository) {
       globalRef.synonymsRepository = new SynonymsRepository();
     }
-
-    // Seed synonyms data
-    globalRef.synonymsRepository.seedSynonyms();
   }
 }
