@@ -43,9 +43,9 @@ export class SynonymsRepository {
     return this.synonyms.size;
   }
 
-  deleteSynonymPair(firstWord: string, secondWord: string): void {
-    // Implementation to be added
-  }
+  // deleteSynonymPair(firstWord: string, secondWord: string): void {
+  // Implementation to be added
+  // }
 
   async seedSynonyms(): Promise<void> {
     /* 

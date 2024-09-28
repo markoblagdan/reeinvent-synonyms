@@ -16,7 +16,8 @@ export default function SynonymLookup() {
 
   useEffect(() => {
     const fetchSynonyms = async () => {
-      if (searchTerm.trim() === "") {
+      const trimmedSearchTerm = searchTerm.trim();
+      if (trimmedSearchTerm === "") {
         return;
       }
 
@@ -24,17 +25,17 @@ export default function SynonymLookup() {
 
       try {
         const { executionTime, result: termSynonyms } = await getSynonyms(
-          searchTerm
+          trimmedSearchTerm
         );
 
         setGetSynonymsExecutionTime(executionTime);
         setSynonyms(termSynonyms);
-      } catch (error) {
+      } catch {
         setSynonyms([]);
         setGetSynonymsExecutionTime(null);
       } finally {
         setIsLoading(false);
-        setLastQueriedSearchTerm(searchTerm);
+        setLastQueriedSearchTerm(trimmedSearchTerm);
       }
     };
 

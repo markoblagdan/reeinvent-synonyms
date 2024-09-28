@@ -26,7 +26,7 @@ export default function LatestSynonymPairsList({
         fetchedLatestSynonymPairs = await getLatestSynonymPairs(
           numberOfPairsToShow
         );
-      } catch (error) {
+      } catch {
         setErrorFetchingInitialSynonymPairs(true);
       }
 

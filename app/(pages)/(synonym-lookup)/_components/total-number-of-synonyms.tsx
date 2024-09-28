@@ -17,7 +17,7 @@ export default function TotalNumberOfSynonyms() {
         const totalNumberOfSynonyms = await getTotalNumberOfSynonyms();
         setTotalNumberOfSynonyms(totalNumberOfSynonyms);
         setErrorFetchingTotalNumberOfSynonyms(false);
-      } catch (error) {
+      } catch {
         setErrorFetchingTotalNumberOfSynonyms(true);
       }
     };
