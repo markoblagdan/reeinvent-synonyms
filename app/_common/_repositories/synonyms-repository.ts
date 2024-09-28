@@ -56,7 +56,15 @@ export class SynonymsRepository {
     */
     const filePath = path.join(process.cwd(), "data", "synonyms.csv");
 
-    const data = await fs.readFile(filePath, "utf8");
+    let data;
+
+    try {
+      data = await fs.readFile(filePath, "utf8");
+    } catch (error) {
+      console.error("Error reading synonyms file:", error);
+      return;
+    }
+
     const lines = data.split("\n");
 
     lines.forEach((line) => {
