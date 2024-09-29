@@ -16,6 +16,6 @@ export async function register() {
     console.info(globalRef.synonymsRepository);
 
     // Seed synonyms data
-    globalRef.synonymsRepository.seedSynonyms();
+    await globalRef.synonymsRepository.seedSynonyms();
   }
 }
