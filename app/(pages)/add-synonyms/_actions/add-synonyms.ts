@@ -5,7 +5,7 @@ import {
   AddSynonymFormState,
   AddSynonymsInputErrors,
 } from "../_types/add-synonym-types";
-import { functionExecutionTimeWrapper } from "@/app/_common/_utils/execution_time_wrapper";
+import { functionExecutionTimeWrapper } from "@/common/utils/execution_time_wrapper";
 
 export async function addSynonyms(
   _: AddSynonymFormState,

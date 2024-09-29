@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getTotalNumberOfSynonyms } from "../_actions/get-total-number-synonyms";
-import Message from "@/app/_common/_components/message/message";
+import Message from "@/common/components/message/message";
 
 export default function TotalNumberOfSynonyms() {
   const [totalNumberOfSynonyms, setTotalNumberOfSynonyms] = useState<

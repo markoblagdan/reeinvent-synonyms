@@ -4,7 +4,7 @@ export async function register() {
   if (process.env.NEXT_RUNTIME === "nodejs") {
     const { globalRef } = await import("./app/globals");
     const { SynonymsRepository } = await import(
-      "./app/_common/_repositories/synonyms-repository"
+      "./common/repositories/synonyms-repository"
     );
 
     // Initialize singleton instances

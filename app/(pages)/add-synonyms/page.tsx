@@ -1,8 +1,8 @@
 "use client";
 
-import Message from "@/app/_common/_components/message/message";
+import Message from "@/common/components/message/message";
 import { useFormState } from "react-dom";
-import FormLoadingState from "../../_common/_components/form-loading-state/form-loading-state";
+import FormLoadingState from "../../../common/components/form-loading-state/form-loading-state";
 import { addSynonyms } from "./_actions/add-synonyms";
 import LatestSynonymPairsList from "./_components/latest-synonym-pairs-list";
 import SynonymInput from "./_components/synonym-input";
@@ -34,7 +34,7 @@ export default function AddSynonyms() {
           </h1>
           <p>
             Add a word and its synonym to our database via the input fields
-            below.
+            below. Entries are case sensitive.
           </p>
         </div>
         <SynonymInput

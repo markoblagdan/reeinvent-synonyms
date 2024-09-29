@@ -1,4 +1,4 @@
-import { FunctionExecutionTimeWrapper } from "../_types/execution_time_wrapper";
+import { FunctionExecutionTimeWrapper } from "../types/execution_time_wrapper";
 
 export const functionExecutionTimeWrapper = <T>(
   fn: () => T,

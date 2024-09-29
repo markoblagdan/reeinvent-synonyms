@@ -1,7 +1,7 @@
 "use client";
 
-import LoadingSpinner from "@/app/_common/_components/loading-spinner/loading-spinner";
-import Popover from "@/app/_common/_components/popover/popover";
+import LoadingSpinner from "@/common/components/loading-spinner/loading-spinner";
+import Popover from "@/common/components/popover/popover";
 import { useEffect, useState } from "react";
 import { getSynonyms } from "./_actions/get-synonyms";
 import TechDetails from "./_components/tech-details";

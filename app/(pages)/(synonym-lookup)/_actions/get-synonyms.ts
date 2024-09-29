@@ -1,6 +1,6 @@
 "use server";
 
-import { functionExecutionTimeWrapper } from "@/app/_common/_utils/execution_time_wrapper";
+import { functionExecutionTimeWrapper } from "@/common/utils/execution_time_wrapper";
 import { globalRef } from "@/app/globals";
 
 export async function getSynonyms(word: string) {

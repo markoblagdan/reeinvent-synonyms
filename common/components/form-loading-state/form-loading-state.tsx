@@ -1,4 +1,4 @@
-import LoadingSpinner from "@/app/_common/_components/loading-spinner/loading-spinner";
+import LoadingSpinner from "@/common/components/loading-spinner/loading-spinner";
 import { useFormStatus } from "react-dom";
 
 export default function FormLoadingState({ text }: { text: string }) {

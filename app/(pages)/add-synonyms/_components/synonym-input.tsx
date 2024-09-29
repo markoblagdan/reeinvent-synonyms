@@ -1,4 +1,4 @@
-import Message from "@/app/_common/_components/message/message";
+import Message from "@/common/components/message/message";
 
 export default function SynonymInput({
   id,
@@ -23,7 +23,6 @@ export default function SynonymInput({
         id={id}
         name={id}
         type="text"
-        // pattern="[a-zA-Z0-9\s]+"
         placeholder={placeholder}
         className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
       />
