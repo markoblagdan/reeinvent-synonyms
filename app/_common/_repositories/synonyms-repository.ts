@@ -67,6 +67,9 @@ export class SynonymsRepository {
 
     const lines = data.split("\n");
 
+    console.info("Processing synonyms CSV...");
+    console.info(lines.slice(0, 100));
+
     lines.forEach((line) => {
       // Skip empty lines
       if (!line.trim()) return;
@@ -110,6 +113,8 @@ export class SynonymsRepository {
         });
       });
     });
+
+    console.info("Synonyms CSV processed.");
   }
 
   private addLatestSynonymPair(firstWord: string, secondWord: string): void {

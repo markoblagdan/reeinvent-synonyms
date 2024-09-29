@@ -12,6 +12,7 @@ export async function register() {
       globalRef.synonymsRepository = new SynonymsRepository();
     }
 
+    console.info("Starting to seed synonyms data...");
     // Seed synonyms data
     globalRef.synonymsRepository.seedSynonyms();
   }
