@@ -65,6 +65,9 @@ export class SynonymsRepository {
       return;
     }
 
+    console.log("Loaded synonyms CSV.");
+    console.log(data.slice(0, 100));
+
     const lines = data.split("\n");
 
     lines.forEach((line) => {
