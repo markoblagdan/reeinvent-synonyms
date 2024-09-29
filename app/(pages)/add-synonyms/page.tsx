@@ -61,13 +61,11 @@ export default function AddSynonyms() {
         <FormLoadingState text="Submitting..." />
         {state.addSynonymsExecutionTime && (
           <p className="text-sm text-gray-800">
-            Adding synonyms took:&nbsp;
-            <span className="font-bold">
-              {state.addSynonymsExecutionTime.toFixed(
-                synonymsAppConfig.numberOfDecimalPlacesToShowForExecutionTime
-              )}
-              milliseconds
-            </span>
+            Adding synonyms took&nbsp;
+            {state.addSynonymsExecutionTime.toFixed(
+              synonymsAppConfig.numberOfDecimalPlacesToShowForExecutionTime
+            )}
+            &nbsp;milliseconds
           </p>
         )}
       </form>

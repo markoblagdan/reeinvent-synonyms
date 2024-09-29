@@ -70,7 +70,7 @@ export default function SynonymLookup() {
             synonyms
           </Popover>
           &nbsp;for a given word. Enter a word in the input field below to find
-          its&apos; synonyms.
+          its synonyms.
         </div>
         <input
           type="text"
@@ -91,7 +91,8 @@ export default function SynonymLookup() {
               {synonyms.map((synonym, index) => (
                 <span
                   key={index}
-                  className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                  className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm cursor-pointer hover:bg-blue-200"
+                  onClick={() => setSearchTerm(synonym)}
                 >
                   {synonym}
                 </span>
