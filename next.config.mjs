@@ -2,9 +2,9 @@
 const nextConfig = {
   experimental: {
     instrumentationHook: true,
-  },
-  outputFileTracingIncludes: {
-    "app/_common/_repositories/synonyms-repository": ["./data/synonyms.csv"],
+    outputFileTracingIncludes: {
+      "/": ["./data/*.csv"],
+    },
   },
 };
 
