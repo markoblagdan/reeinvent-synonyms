@@ -8,11 +8,10 @@ export const functionExecutionTimeWrapper = <T>(
   const result = fn();
   const end = performance.now();
 
-  console.log(
-    `Execution time: ${end - start} milliseconds ${
-      name ? `for function name: ${name}` : ""
-    }`
-  );
+  if (name)
+    console.info(
+      `Execution time: ${end - start} milliseconds for function ${name}`
+    );
 
   return { executionTime: end - start, result };
 };
