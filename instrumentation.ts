@@ -13,6 +13,8 @@ export async function register() {
     }
 
     console.info("Starting to seed synonyms data...");
+    console.info(globalRef.synonymsRepository);
+
     // Seed synonyms data
     globalRef.synonymsRepository.seedSynonyms();
   }
