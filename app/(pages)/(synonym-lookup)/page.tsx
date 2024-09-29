@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
 import LoadingSpinner from "@/app/_common/_components/loading-spinner/loading-spinner";
+import { useEffect, useState } from "react";
 import { getSynonyms } from "./_actions/get-synonyms";
 import TotalNumberOfSynonyms from "./_components/total-number-of-synonyms";
 
