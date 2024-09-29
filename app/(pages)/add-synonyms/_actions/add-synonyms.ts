@@ -40,21 +40,28 @@ export async function addSynonyms(
 }
 
 const validateSynonymInput = (
-  firstSynonym: string,
-  secondSynonym: string
+  word: string,
+  synonym: string
 ): AddSynonymsInputErrors => {
   const inputErrors: AddSynonymsInputErrors = {
     wordError: "",
     synonymError: "",
   };
 
-  if (!firstSynonym) {
+  // TODO: Find a regex or better validation that will match all letters and numbers in any language.
+  const alphaNumericWithCroatianLettersRegex = /[^a-zA-Z0-9ćĆčČžŽđĐ]/;
+
+  if (!word) {
     inputErrors.wordError = "Word is required!";
+  } else if (word.match(alphaNumericWithCroatianLettersRegex)) {
+    inputErrors.wordError = "Word can contain only letters and numbers.";
   }
 
-  if (!secondSynonym) {
+  if (!synonym) {
     inputErrors.synonymError = "Synonym is required!";
-  } else if (firstSynonym === secondSynonym) {
+  } else if (synonym.match(alphaNumericWithCroatianLettersRegex)) {
+    inputErrors.synonymError = "Synonym can contain only letters and numbers.";
+  } else if (word === synonym) {
     inputErrors.synonymError = "Word and synonym must be different.";
   }
 

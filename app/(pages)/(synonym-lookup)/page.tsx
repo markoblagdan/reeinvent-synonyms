@@ -77,7 +77,7 @@ export default function SynonymLookup() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Enter a word to find synonyms"
-          className="w-1/2 p-2 border rounded my-4"
+          className="w-full md:w-1/2 p-2 border rounded my-4"
         />
         {isLoading && (
           <div className="flex items-center gap-2">
