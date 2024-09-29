@@ -5,6 +5,8 @@ export class SynonymsRepository {
   synonyms: Map<string, Set<string>> = new Map<string, Set<string>>();
   latestSynonymPairs: [string, string][] | undefined;
 
+  private readonly seedDataFilePath = "data/synonyms.csv";
+
   getSynonyms = (word: string): Set<string> | undefined => {
     return this.synonyms.get(word);
   };
@@ -54,11 +56,12 @@ export class SynonymsRepository {
       This means that for words which can be both a verb or noun (e.g. "yield") we will retrieve synonyms from both types.
       The idea is to test execution time with a larger set of data. 
     */
-    const filePath = path.join(process.cwd(), "data", "synonyms.csv");
+    const filePath = path.join(process.cwd(), this.seedDataFilePath);
 
     let data;
 
     try {
+      console.info("Reading synonyms CSV file...");
       data = await fs.readFile(filePath, "utf8");
     } catch (error) {
       console.error("Error reading synonyms file:", error);
@@ -66,9 +69,6 @@ export class SynonymsRepository {
     }
 
     const lines = data.split("\n");
-
-    console.info("Processing synonyms CSV...");
-    console.info(lines.slice(0, 100));
 
     lines.forEach((line) => {
       // Skip empty lines
