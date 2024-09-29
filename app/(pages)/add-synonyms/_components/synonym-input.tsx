@@ -4,10 +4,12 @@ export default function SynonymInput({
   id,
   label,
   errorMessage,
+  placeholder,
 }: {
   id: string;
   label: string;
   errorMessage: string | undefined;
+  placeholder: string;
 }) {
   return (
     <div className="mb-4">
@@ -21,6 +23,8 @@ export default function SynonymInput({
         id={id}
         name={id}
         type="text"
+        // pattern="[a-zA-Z0-9\s]+"
+        placeholder={placeholder}
         className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
       />
       {errorMessage && <Message type="error" message={errorMessage} />}

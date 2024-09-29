@@ -7,11 +7,12 @@ import { addSynonyms } from "./_actions/add-synonyms";
 import LatestSynonymPairsList from "./_components/latest-synonym-pairs-list";
 import SynonymInput from "./_components/synonym-input";
 import { AddSynonymFormState } from "./_types/add-synonym-types";
+import { synonymsAppConfig } from "@/config";
 
 const initialState: AddSynonymFormState = {
-  synonymErrors: {
-    firstSynonymError: "",
-    secondSynonymError: "",
+  inputErrors: {
+    wordError: "",
+    synonymError: "",
   },
   successMessage: "",
   latestSynonymPairs: [],
@@ -27,18 +28,26 @@ export default function AddSynonyms() {
         action={formAction}
         className="md:w-1/3 w-full bg-white p-8 shadow-lg rounded-lg"
       >
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
-          Enter Synonym Pair
-        </h1>
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
+            Add Synonyms
+          </h1>
+          <p>
+            Add a word and its synonym to our database via the input fields
+            below.
+          </p>
+        </div>
         <SynonymInput
-          id="firstSynonym"
-          label="First Synonym"
-          errorMessage={state.synonymErrors?.firstSynonymError}
+          id="word"
+          label="Word"
+          placeholder="Enter a word, e.g. sreća"
+          errorMessage={state.inputErrors?.wordError}
         />
         <SynonymInput
-          id="secondSynonym"
-          label="Second Synonym"
-          errorMessage={state.synonymErrors?.secondSynonymError}
+          id="synonym"
+          label="Synonym"
+          placeholder="Enter a synonym, e.g. radost"
+          errorMessage={state.inputErrors?.synonymError}
         />
         <button
           type="submit"
@@ -52,9 +61,12 @@ export default function AddSynonyms() {
         <FormLoadingState text="Submitting..." />
         {state.addSynonymsExecutionTime && (
           <p className="text-sm text-gray-800">
-            Adding synonyms took:
+            Adding synonyms took:&nbsp;
             <span className="font-bold">
-              {state.addSynonymsExecutionTime} milliseconds
+              {state.addSynonymsExecutionTime.toFixed(
+                synonymsAppConfig.numberOfDecimalPlacesToShowForExecutionTime
+              )}
+              milliseconds
             </span>
           </p>
         )}

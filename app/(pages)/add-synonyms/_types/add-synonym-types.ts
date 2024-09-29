@@ -1,10 +1,10 @@
 export type AddSynonymsInputErrors = {
-  firstSynonymError: string;
-  secondSynonymError: string;
+  wordError: string;
+  synonymError: string;
 };
 
 export type AddSynonymFormState = {
-  synonymErrors?: AddSynonymsInputErrors;
+  inputErrors?: AddSynonymsInputErrors;
   successMessage?: string;
   latestSynonymPairs?: string[][];
   addSynonymsExecutionTime?: number | null;

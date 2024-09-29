@@ -29,9 +29,9 @@ export default function TotalNumberOfSynonyms() {
     <>
       {totalNumberOfSynonyms && (
         <div>
-          <p className="mt-4 text-lg font-semibold text-gray-800">
+          <p className="mt-4 text-sm text-gray-800">
             Total number of synonyms in database:&nbsp;
-            <span className="text-indigo-800">{totalNumberOfSynonyms}</span>
+            <span>{totalNumberOfSynonyms}</span>
           </p>
         </div>
       )}

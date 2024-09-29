@@ -11,20 +11,20 @@ export async function addSynonyms(
   _: AddSynonymFormState,
   formData: FormData
 ): Promise<AddSynonymFormState> {
-  const firstSynonym = formData.get("firstSynonym") as string;
-  const secondSynonym = formData.get("secondSynonym") as string;
+  const word = formData.get("word") as string;
+  const synonym = formData.get("synonym") as string;
 
-  const synonymErrors = validateSynonymInput(firstSynonym, secondSynonym);
+  const synonymErrors = validateSynonymInput(word, synonym);
 
-  if (synonymErrors.firstSynonymError || synonymErrors.secondSynonymError) {
-    return <AddSynonymFormState>{ synonymErrors };
+  if (synonymErrors.wordError || synonymErrors.synonymError) {
+    return <AddSynonymFormState>{ inputErrors: synonymErrors };
   }
 
   const addSynonymsResult = functionExecutionTimeWrapper(
     globalRef.synonymsRepository.addSynonymPair.bind(
       globalRef.synonymsRepository,
-      firstSynonym,
-      secondSynonym
+      word,
+      synonym
     ),
     "addSynonyms"
   );
@@ -33,7 +33,7 @@ export async function addSynonyms(
     globalRef.synonymsRepository.getLatestSynonymPairs(5);
 
   return <AddSynonymFormState>{
-    successMessage: `Synonym pair: "${firstSynonym}" - "${secondSynonym}" added successfully`,
+    successMessage: `Synonym pair: "${word}" - "${synonym}" added successfully`,
     latestSynonymPairs,
     addSynonymsExecutionTime: addSynonymsResult.executionTime,
   };
@@ -43,21 +43,20 @@ const validateSynonymInput = (
   firstSynonym: string,
   secondSynonym: string
 ): AddSynonymsInputErrors => {
-  const synonymErrors: AddSynonymsInputErrors = {
-    firstSynonymError: "",
-    secondSynonymError: "",
+  const inputErrors: AddSynonymsInputErrors = {
+    wordError: "",
+    synonymError: "",
   };
 
   if (!firstSynonym) {
-    synonymErrors.firstSynonymError = "First synonym is required";
+    inputErrors.wordError = "Word is required!";
   }
 
   if (!secondSynonym) {
-    synonymErrors.secondSynonymError = "Second synonym is required";
+    inputErrors.synonymError = "Synonym is required!";
   } else if (firstSynonym === secondSynonym) {
-    synonymErrors.secondSynonymError =
-      "Second synonym must be different from first synonym";
+    inputErrors.synonymError = "Word and synonym must be different.";
   }
 
-  return synonymErrors;
+  return inputErrors;
 };
