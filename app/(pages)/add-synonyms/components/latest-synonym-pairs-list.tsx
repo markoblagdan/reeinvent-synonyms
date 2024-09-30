@@ -22,14 +22,10 @@ export default function LatestSynonymPairsList({
 
   useEffect(() => {
     const fetchLatestSynonymPairs = async () => {
-      let fetchedLatestSynonymPairs: string[][] = [];
       const numberOfPairsToShow = 5;
 
       try {
-        fetchedLatestSynonymPairs = await getLatestSynonymPairs(
-          numberOfPairsToShow
-        );
-        setLatestSynonymPairs(fetchedLatestSynonymPairs);
+        setLatestSynonymPairs(await getLatestSynonymPairs(numberOfPairsToShow));
       } catch {
         setErrorFetchingSynonymPairs(true);
       }
