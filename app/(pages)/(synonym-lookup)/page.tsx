@@ -3,8 +3,8 @@
 import LoadingSpinner from "@/common/components/loading-spinner/loading-spinner";
 import Popover from "@/common/components/popover/popover";
 import { useEffect, useState } from "react";
-import { getSynonyms } from "./_actions/get-synonyms";
-import TechDetails from "./_components/tech-details";
+import { getSynonyms } from "./actions/get-synonyms";
+import TechDetails from "./components/tech-details";
 
 export default function SynonymLookup() {
   const [searchTerm, setSearchTerm] = useState("");

@@ -4,7 +4,7 @@ import { globalRef } from "@/app/globals";
 import {
   AddSynonymFormState,
   AddSynonymsInputErrors,
-} from "../_types/add-synonym-types";
+} from "../types/add-synonym-types";
 import { functionExecutionTimeWrapper } from "@/common/utils/execution_time_wrapper";
 
 /**

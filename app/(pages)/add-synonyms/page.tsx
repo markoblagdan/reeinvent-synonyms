@@ -3,10 +3,10 @@
 import Message from "@/common/components/message/message";
 import { useFormState } from "react-dom";
 import FormLoadingState from "../../../common/components/form-loading-state/form-loading-state";
-import { addSynonyms } from "./_actions/add-synonyms";
-import LatestSynonymPairsList from "./_components/latest-synonym-pairs-list";
-import SynonymInput from "./_components/synonym-input";
-import { AddSynonymFormState } from "./_types/add-synonym-types";
+import { addSynonyms } from "./actions/add-synonyms";
+import LatestSynonymPairsList from "./components/latest-synonym-pairs-list";
+import SynonymInput from "./components/synonym-input";
+import { AddSynonymFormState } from "./types/add-synonym-types";
 import { synonymsAppConfig } from "@/config";
 
 const initialState: AddSynonymFormState = {

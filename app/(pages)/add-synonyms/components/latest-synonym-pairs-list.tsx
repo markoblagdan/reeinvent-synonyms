@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getLatestSynonymPairs } from "../_actions/get-latest-synonym-pairs";
+import { getLatestSynonymPairs } from "../actions/get-latest-synonym-pairs";
 import Message from "@/common/components/message/message";
 
 export default function LatestSynonymPairsList({
