@@ -61,13 +61,11 @@ export default function LatestSynonymPairsList({
             ))}
           </ul>
         )}
-        {latestSynonymPairs &&
-          latestSynonymPairs.length === 0 &&
-          !errorFetchingSynonymPairs && (
-            <p className="text-gray-500 italic mt-4">
-              No synonyms were added yet.
-            </p>
-          )}
+        {!latestSynonymPairs && !errorFetchingSynonymPairs && (
+          <p className="text-gray-500 italic mt-4">
+            No synonyms were added yet.
+          </p>
+        )}
         {errorFetchingSynonymPairs && (
           <Message
             type="error"
