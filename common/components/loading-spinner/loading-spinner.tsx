@@ -16,9 +16,6 @@ export default function LoadingSpinner({
       <div></div>
       <div></div>
       <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
     </div>
   );
 }

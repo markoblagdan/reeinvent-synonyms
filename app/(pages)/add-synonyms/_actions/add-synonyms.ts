@@ -7,6 +7,13 @@ import {
 } from "../_types/add-synonym-types";
 import { functionExecutionTimeWrapper } from "@/common/utils/execution_time_wrapper";
 
+/**
+ * Server action for adding a pair of synonyms to the data layer.
+ * It also fetches the latest synonym pairs so an updated list can be displayed immediately on the UI.
+ * @param {AddSynonymFormState} _ - The current state of the form.
+ * @param {FormData} formData - The form data containing the word and synonym.
+ * @returns {Promise<AddSynonymFormState>} The updated state of the form.
+ */
 export async function addSynonyms(
   _: AddSynonymFormState,
   formData: FormData

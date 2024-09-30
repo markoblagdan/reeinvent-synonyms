@@ -7,7 +7,7 @@ export async function register() {
       "./common/repositories/synonyms-repository"
     );
 
-    // Initialize singleton instances
+    // Initialize global singleton instances
     if (!globalRef.synonymsRepository) {
       globalRef.synonymsRepository = new SynonymsRepository();
     }

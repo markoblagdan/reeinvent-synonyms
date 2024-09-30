@@ -32,10 +32,14 @@ export default function AddSynonyms() {
           <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
             Add Synonyms
           </h1>
-          <p>
+          <p className="mb-4">
             Add a word and its synonym to our database via the input fields
-            below. Entries are case sensitive.
+            below.
           </p>
+          <ul className="list-disc list-inside">
+            <li>Entries are case sensitive.</li>
+            <li>Currently only supports English and Croatian letters.</li>
+          </ul>
         </div>
         <SynonymInput
           id="word"

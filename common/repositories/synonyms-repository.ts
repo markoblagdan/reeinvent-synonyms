@@ -1,16 +1,31 @@
 import path from "path";
 import { promises as fs } from "fs";
 
+/**
+ * Repository class for seeding, getting, adding and deleting synonyms.
+ * @class
+ */
 export class SynonymsRepository {
   synonyms: Map<string, Set<string>> = new Map<string, Set<string>>();
   latestSynonymPairs: [string, string][] | undefined;
 
   private readonly seedDataFilePath = "data/synonyms.csv";
 
+  /**
+   * Retrieves synonyms for a given word.
+   * @param {string} word - The word to find synonyms for.
+   * @returns {Set<string> | undefined} A set of synonyms if found, undefined otherwise.
+   */
   getSynonyms = (word: string): Set<string> | undefined => {
     return this.synonyms.get(word);
   };
 
+  /**
+   * Adds a pair of synonyms to the repository.
+   * @param {string} firstWord - The first word of the synonym pair.
+   * @param {string} secondWord - The second word of the synonym pair.
+   * @returns {void}
+   */
   addSynonymPair(firstWord: string, secondWord: string): void {
     const firstWordSynonymSet = this.synonyms.get(firstWord) || new Set();
     const secondWordSynonymSet = this.synonyms.get(secondWord) || new Set();
@@ -20,11 +35,15 @@ export class SynonymsRepository {
     allSynonyms.add(firstWord);
     allSynonyms.add(secondWord);
 
-    // Add the other synonyms to the set of all synonyms for both words. Set.prototype.union or using spread operator on Set is not available in ES5, so we need to use forEach to update the allSynonyms set
+    // Add the other synonyms to the set of all synonyms for both words.
+    // Set.prototype.union or using spread operator on Set is not available in ES5,
+    // so we need to use forEach to update the allSynonyms set
     firstWordSynonymSet.forEach((word) => allSynonyms.add(word));
     secondWordSynonymSet.forEach((word) => allSynonyms.add(word));
 
+    // Update the synonym sets for each found synonym with the new set of all synonyms
     allSynonyms.forEach((word) => {
+      // Clone the set to avoid referencingthe original set
       const allSynonymsClone = new Set(allSynonyms);
 
       // Remove the key word from the cloned set
@@ -37,25 +56,36 @@ export class SynonymsRepository {
     this.addLatestSynonymPair(firstWord, secondWord);
   }
 
+  /**
+   * Retrieves the latest added synonym pairs.
+   * @param {number} numberOfPairs - The number of latest pairs to retrieve.
+   * @returns {[string, string][] | undefined} An array of synonym pairs or undefined.
+   */
   getLatestSynonymPairs(numberOfPairs: number): [string, string][] | undefined {
     return this.latestSynonymPairs?.slice(0, numberOfPairs);
   }
 
+  /**
+   * Gets the total number of synonyms available to the repository.
+   * @returns {number} The total count of synonyms.
+   */
   getTotalNumberOfSynonyms(): number {
     return this.synonyms.size;
   }
 
   // deleteSynonymPair(firstWord: string, secondWord: string): void {
-  // Implementation to be added
+  //  TODO: Implement pair deletion
   // }
 
+  /**
+   * Seeds the repository with initial synonym data.
+   * Currently data is read from a CSV file. The provided file lists synonyms by word and by type, e.g. verb or noun.
+   * Since our current implementation does not support synonyms by type, we will treat all synonyms as belonging to one type.
+   * This means that for words which can be both a verb or noun (e.g. "yield") we will retrieve synonyms from both types.
+   * The idea is to test execution time with a larger set of data.
+   * @returns {Promise<void>} A promise that resolves when seeding is complete.
+   */
   async seedSynonyms(): Promise<void> {
-    /* 
-      Read the synonyms data from the CSV file. The provided file lists synonyms by word and by type, e.g. verb or noun.
-      Since our current implementation does not support synonyms by type, we will treat all synonyms as belonging to one type.
-      This means that for words which can be both a verb or noun (e.g. "yield") we will retrieve synonyms from both types.
-      The idea is to test execution time with a larger set of data. 
-    */
     const filePath = path.join(process.cwd(), this.seedDataFilePath);
 
     let data;
