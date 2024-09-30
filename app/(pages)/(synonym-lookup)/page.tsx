@@ -86,7 +86,9 @@ export default function SynonymLookup() {
         )}
         {!isLoading && synonyms && synonyms.length > 0 && (
           <div>
-            <h2 className="text-xl font-semibold mb-2">Synonyms:</h2>
+            <h2 className="text-xl font-semibold mb-2">
+              Synonyms for &quot;{lastQueriedSearchTerm}&quot;:
+            </h2>
             <div className="flex flex-wrap gap-2 mb-4">
               {synonyms.map((synonym, index) => (
                 <span
