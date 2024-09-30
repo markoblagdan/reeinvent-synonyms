@@ -73,6 +73,12 @@ export class SynonymsRepository {
     return this.synonyms.size;
   }
 
+  /**
+   * Deletes both the word and the synonym completely from the data layer.
+   * @param {string} word - The word to delete.
+   * @param {string} synonym - The synonym to delete.
+   * @returns {[string, string][] | undefined} The latest synonym pairs after deletion.
+   */
   deleteSynonyms(
     word: string,
     synonym: string
