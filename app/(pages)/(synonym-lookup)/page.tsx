@@ -5,12 +5,14 @@ import Popover from "@/common/components/popover/popover";
 import { useEffect, useState } from "react";
 import { getSynonyms } from "./actions/get-synonyms";
 import TechDetails from "./components/tech-details";
+import Message from "@/common/components/message/message";
 
 export default function SynonymLookup() {
   const [searchTerm, setSearchTerm] = useState("");
   const [lastQueriedSearchTerm, setLastQueriedSearchTerm] = useState("");
   const [synonyms, setSynonyms] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [lookupError, setLookupError] = useState<string | null>(null);
   const [getSynonymsExecutionTime, setGetSynonymsExecutionTime] = useState<
     number | null
   >(null);
@@ -31,7 +33,11 @@ export default function SynonymLookup() {
 
         setGetSynonymsExecutionTime(executionTime);
         setSynonyms(termSynonyms);
+        setLookupError(null);
       } catch {
+        setLookupError(
+          "Lookup failed. Perhaps there are network connection issues, if refreshing the page and typing again does not help, come back later."
+        );
         setSynonyms([]);
         setGetSynonymsExecutionTime(null);
       } finally {
@@ -102,7 +108,15 @@ export default function SynonymLookup() {
             </div>
           </div>
         )}
+        {lookupError && (
+          <Message
+            widthCssClass="max-w-sm"
+            type="error"
+            message={lookupError}
+          />
+        )}
         {!isLoading &&
+          !lookupError &&
           lastQueriedSearchTerm &&
           synonyms &&
           synonyms.length === 0 && (

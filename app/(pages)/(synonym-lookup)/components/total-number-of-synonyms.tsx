@@ -37,6 +37,7 @@ export default function TotalNumberOfSynonyms() {
       )}
       {errorFetchingTotalNumberOfSynonyms && (
         <Message
+          widthCssClass="max-w-sm"
           type="error"
           message="Error fetching total number of synonyms"
         />
