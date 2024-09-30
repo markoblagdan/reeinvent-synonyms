@@ -1,8 +1,8 @@
 import React from "react";
 
 type MessageProps = {
-  type: "success" | "error";
-  message: string;
+  type: "success" | "error" | "info";
+  message: string | React.ReactNode;
   widthCssClass?: "max-w-sm" | "max-w-md" | "max-w-lg";
 };
 
@@ -33,6 +33,19 @@ export default function Message({
         }
       >
         <p className="text-green-700 text-sm text-center">{message}</p>
+      </div>
+    );
+  }
+
+  if (type === "info") {
+    return (
+      <div
+        className={
+          "mt-2 p-2 bg-blue-100 border border-blue-600 rounded-md " +
+          (widthCssClass ?? "")
+        }
+      >
+        <p className="text-blue-700 text-sm">{message}</p>
       </div>
     );
   }

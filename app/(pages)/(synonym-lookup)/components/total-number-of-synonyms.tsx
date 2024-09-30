@@ -27,7 +27,7 @@ export default function TotalNumberOfSynonyms() {
 
   return (
     <>
-      {totalNumberOfSynonyms && (
+      {!errorFetchingTotalNumberOfSynonyms && totalNumberOfSynonyms && (
         <div>
           <p className="mt-4 text-sm text-gray-800">
             Total number of synonyms in database:&nbsp;

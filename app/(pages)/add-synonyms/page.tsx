@@ -73,7 +73,9 @@ export default function AddSynonyms() {
           </p>
         )}
       </form>
-      <LatestSynonymPairsList latestSynonymPairs={state.latestSynonymPairs} />
+      <LatestSynonymPairsList
+        latestSynonymPairsFromAddSynonymCall={state.latestSynonymPairs}
+      />
     </div>
   );
 }

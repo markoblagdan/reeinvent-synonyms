@@ -73,9 +73,46 @@ export class SynonymsRepository {
     return this.synonyms.size;
   }
 
-  // deleteSynonymPair(firstWord: string, secondWord: string): void {
-  //  TODO: Implement pair deletion
-  // }
+  deleteSynonyms(
+    word: string,
+    synonym: string
+  ): [string, string][] | undefined {
+    const wordSynonymSet = this.synonyms.get(word);
+
+    // First we check if the word exists and if it contains the synonym
+    if (!wordSynonymSet) {
+      throw new Error("Word not found, nothing to delete.");
+    }
+
+    if (!wordSynonymSet.has(synonym)) {
+      throw new Error(
+        "Provided word and synyonym are not valid pairs, cancelling operation."
+      );
+    }
+
+    // Remove both the word and the synonym from the sets of the word's other synonyms
+    wordSynonymSet.forEach((wordSynonym) => {
+      const synonymSet = this.synonyms.get(wordSynonym)!;
+
+      synonymSet.delete(word);
+      synonymSet.delete(synonym);
+    });
+
+    // Delete the sets of the word and the synonym
+    this.synonyms.delete(word);
+    this.synonyms.delete(synonym);
+
+    // Filter out any pairs that contain the word or synonym
+    this.latestSynonymPairs = this.latestSynonymPairs?.filter(
+      (synonymPair) =>
+        !synonymPair.some(
+          (synonymPairWord) =>
+            synonymPairWord === word || synonymPairWord === synonym
+        )
+    );
+
+    return this.latestSynonymPairs;
+  }
 
   /**
    * Seeds the repository with initial synonym data.

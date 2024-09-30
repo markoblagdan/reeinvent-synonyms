@@ -6,12 +6,12 @@ import { FunctionExecutionTimeWrapper } from "../types/execution_time_wrapper";
  * @param {string} name - Optional name for the function. Used for logging the execution time.
  * @returns {FunctionExecutionTimeWrapper<T>} An object containing the execution time and the result of the function.
  */
-export const functionExecutionTimeWrapper = <T>(
-  fn: () => T,
+export const functionExecutionTimeWrapper = async <T>(
+  fn: () => T | Promise<T>,
   name?: string
-): FunctionExecutionTimeWrapper<T> => {
+): Promise<FunctionExecutionTimeWrapper<T>> => {
   const start = performance.now();
-  const result = fn();
+  const result = await fn();
   const end = performance.now();
 
   if (name)

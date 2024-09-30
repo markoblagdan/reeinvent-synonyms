@@ -1,21 +1,24 @@
+import Message from "@/common/components/message/message";
 import { useEffect, useState } from "react";
 import { getLatestSynonymPairs } from "../actions/get-latest-synonym-pairs";
-import Message from "@/common/components/message/message";
+import SynonymPairEntry from "./synonym-pair-entry";
+import { synonymsAppConfig } from "@/config";
 
 export default function LatestSynonymPairsList({
-  latestSynonymPairs,
+  latestSynonymPairsFromAddSynonymCall,
 }: {
-  latestSynonymPairs: string[][] | undefined;
+  latestSynonymPairsFromAddSynonymCall: [string, string][] | undefined;
 }) {
-  const [initialLatestSynonymPairs, setInitialLatestSynonymPairs] = useState<
-    string[][]
-  >([]);
-  const [initialSynonymPairsFetched, setInitialSynonymPairsFetched] =
+  const [latestSynonymPairs, setLatestSynonymPairs] = useState<
+    [string, string][] | undefined
+  >(undefined);
+  const [errorFetchingSynonymPairs, setErrorFetchingSynonymPairs] =
     useState(false);
-  const [
-    errorFetchingInitialSynonymPairs,
-    setErrorFetchingInitialSynonymPairs,
-  ] = useState(false);
+  const [errorDeletingSynonymPair, setErrorDeletingSynonymPair] = useState<
+    string | null
+  >(null);
+  const [deleteSynonymsExecutionTime, setDeleteSynonymsExecutionTime] =
+    useState<number | null>(null);
 
   useEffect(() => {
     const fetchLatestSynonymPairs = async () => {
@@ -26,52 +29,83 @@ export default function LatestSynonymPairsList({
         fetchedLatestSynonymPairs = await getLatestSynonymPairs(
           numberOfPairsToShow
         );
+        setLatestSynonymPairs(fetchedLatestSynonymPairs);
       } catch {
-        setErrorFetchingInitialSynonymPairs(true);
-      }
-
-      if (fetchedLatestSynonymPairs) {
-        setInitialLatestSynonymPairs(fetchedLatestSynonymPairs);
-        setInitialSynonymPairsFetched(true);
+        setErrorFetchingSynonymPairs(true);
       }
     };
 
     fetchLatestSynonymPairs();
   }, []);
 
-  const synonymPairsToShow =
-    latestSynonymPairs && latestSynonymPairs.length > 0
-      ? latestSynonymPairs
-      : initialLatestSynonymPairs;
+  useEffect(() => {
+    if (latestSynonymPairsFromAddSynonymCall) {
+      setLatestSynonymPairs(latestSynonymPairsFromAddSynonymCall);
+    }
+  }, [latestSynonymPairsFromAddSynonymCall]);
 
   return (
-    <>
-      <div className="md:w-1/4 w-full bg-white p-8 shadow-lg rounded-lg">
+    <div className="md:w-1/4 w-full bg-white p-8 shadow-lg rounded-lg flex flex-col">
+      <div className="flex-auto">
         <h2>Latest Synonym Pairs:</h2>
-        {synonymPairsToShow.length > 0 && (
+        {latestSynonymPairs && latestSynonymPairs.length > 0 && (
           <ul>
-            {synonymPairsToShow.map((pair, index) => (
+            {latestSynonymPairs.map((pair, index) => (
               <li key={index}>
-                <span className="font-bold">{pair[0]}</span> -{" "}
-                <span className="font-bold">{pair[1]}</span>
+                <SynonymPairEntry
+                  word={pair[0]}
+                  synonym={pair[1]}
+                  setErrorDeleting={setErrorDeletingSynonymPair}
+                  setDeleteSynonymsExecutionTime={
+                    setDeleteSynonymsExecutionTime
+                  }
+                  setLatestSynonymPairs={setLatestSynonymPairs}
+                />
               </li>
             ))}
           </ul>
         )}
-        {initialSynonymPairsFetched &&
-          synonymPairsToShow.length === 0 &&
-          !errorFetchingInitialSynonymPairs && (
+        {latestSynonymPairs &&
+          latestSynonymPairs.length === 0 &&
+          !errorFetchingSynonymPairs && (
             <p className="text-gray-500 italic mt-4">
               No synonyms were added yet.
             </p>
           )}
-        {errorFetchingInitialSynonymPairs && (
+        {errorFetchingSynonymPairs && (
           <Message
             type="error"
             message="Error fetching latest synonym pairs. Try adding synonyms or refreshing the page."
           />
         )}
+        {errorDeletingSynonymPair && (
+          <Message type="error" message={errorDeletingSynonymPair} />
+        )}
       </div>
-    </>
+      <div className="flex-initial">
+        {deleteSynonymsExecutionTime && (
+          <p className="text-sm">
+            Deleting synonyms took{" "}
+            {deleteSynonymsExecutionTime?.toFixed(
+              synonymsAppConfig.numberOfDecimalPlacesToShowForExecutionTime
+            )}
+            &nbsp;milliseconds
+          </p>
+        )}
+
+        {latestSynonymPairs && latestSynonymPairs.length > 0 && (
+          <Message
+            type="info"
+            message={
+              <>
+                <b>Note</b>: Deleting synonyms using this list does not undo the
+                add operation - it removes both the word and the synonym from
+                the data completely.
+              </>
+            }
+          />
+        )}
+      </div>
+    </div>
   );
 }

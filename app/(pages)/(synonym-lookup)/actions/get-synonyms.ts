@@ -9,7 +9,7 @@ import { globalRef } from "@/app/globals";
  * @returns {Promise<FunctionExecutionTimeWrapperResult<Set<string>>>} An object containing the list of synonyms if available and the execution time.
  */
 export async function getSynonyms(word: string) {
-  const getSynonymsResult = functionExecutionTimeWrapper(
+  const getSynonymsResult = await functionExecutionTimeWrapper(
     globalRef.synonymsRepository.getSynonyms.bind(
       globalRef.synonymsRepository,
       word

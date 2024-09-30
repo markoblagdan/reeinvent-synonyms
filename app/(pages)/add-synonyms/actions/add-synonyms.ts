@@ -27,7 +27,7 @@ export async function addSynonyms(
     return <AddSynonymFormState>{ inputErrors: synonymErrors };
   }
 
-  const addSynonymsResult = functionExecutionTimeWrapper(
+  const addSynonymsResult = await functionExecutionTimeWrapper(
     globalRef.synonymsRepository.addSynonymPair.bind(
       globalRef.synonymsRepository,
       word,
